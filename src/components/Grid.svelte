@@ -1,7 +1,9 @@
 <div>
-    {#each columns as column}
-        <Column column={column} />
-    {/each}
+    <div class="table">
+        {#each columns as column, i}
+            <Column id={i} column={column} />
+        {/each}
+    </div>
     <ColorSelector colors={["white", "black"]}/>
 
     
@@ -23,8 +25,13 @@
 
 </script>
 <style>
-    div {
+    .table {
         display: flex;
         flex-direction: row;
+    }
+    div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 </style>

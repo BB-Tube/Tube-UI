@@ -1,11 +1,13 @@
-<div>
+<div on:click={addBall}>
     {#each column as color}
         <Ball color={color} />
     {/each}
 </div>
 <script>
     export let column;
+    export let id;
     import Ball from "./Ball.svelte";
+    import { getContext } from "svelte";
     // let ballColors = [];
 
     // for (let i = 0; i < column.length; i++) {
@@ -24,6 +26,21 @@
 
     const addBall = async () => {
 
+        let color = getContext("color");
+        console.log(color);
+
+        let res = await fetch("http://localhost:4321/api/updateState", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                column: id,
+                color
+            })
+        });
+        res = await res.json();
+        console.log(res);
     }
 </script>
 <style>
