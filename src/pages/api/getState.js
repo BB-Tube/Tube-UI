@@ -4,7 +4,7 @@ export async function GET() {
         const state = JSON.parse(fs.readFileSync('public/state.json', 'utf8'));
 
         return new Response(JSON.stringify({
-            state: state["state"]
+            state
         }), {
             status: 200
         })

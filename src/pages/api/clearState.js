@@ -5,7 +5,7 @@ export async function GET() {
         ]
     }
 
-    for (let i = 0; i < 96; i++) {
+    for (let i = 0; i < import.meta.env.COLUMNS; i++) {
         state["state"].push([]);
     }
 

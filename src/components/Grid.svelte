@@ -1,9 +1,16 @@
 <div>
-    hi
+    
 </div>
 <script>
-    // import state from "../../public/state.json";
 
-    // console.log(state)
+    const getState = async () => {
+        let res = await fetch("http://localhost:4321/api/getState");
+        res = await res.json();
+        console.log(res);
+    }
+
+    getState();
+    
+
 
 </script>
