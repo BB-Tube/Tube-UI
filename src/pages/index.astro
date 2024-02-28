@@ -1,4 +1,5 @@
 ---
+import Grid from "../components/Grid.svelte";
 
 ---
 
@@ -6,11 +7,27 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Tube UI</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>Welcome to the TUUUUBE</h1>
+		<Grid client:load />
 	</body>
 </html>
+<style>
+
+	body {
+		background-color: #515151;
+		color: #F6FDFE;
+		font-family: "Oswald";
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+</style>
