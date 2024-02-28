@@ -5,6 +5,10 @@
         {/each}
     </div>
     <ColorSelector colors={["white", "black"]}/>
+    <div on:click={emptyTube} id="empty">
+        Empty the TUBE
+    </div>
+
 
     
     
@@ -25,18 +29,33 @@
         const response = await fetch("http://localhost:4321/api/getState");
         const data = await response.json();
         columns = data["state"];
+    }
 
-        // for (let i = columns.length; i < 96; i++) {
-        //     for (let j = columns[i].length; j < 32, j++) {
-        //         columns[i][j].push("none");
-        //     }
-        // }
+    const emptyTube = async () => {
+        await fetch("http://localhost:4321/api/clearState");
+        updateTable();
     }
     
 
 
 </script>
 <style>
+    #empty {
+        height: 50px;
+        width: 200px;
+        border-radius: 10px;
+        background-color: #777777;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-transition-duration: 0.4s; /* Safari */
+  		transition-duration: 0.4s;
+        font-size: 25px;
+        margin: 5px;
+    }
+    #empty:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
     .table {
         display: flex;
         flex-direction: row;
