@@ -43,4 +43,8 @@
     div:hover {
         outline: 1px solid #F6FDFE;
     }
+    div {
+        display: flex;
+        flex-direction: column-reverse;
+    }
 </style>
