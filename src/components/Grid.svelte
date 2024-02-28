@@ -25,6 +25,12 @@
         const response = await fetch("http://localhost:4321/api/getState");
         const data = await response.json();
         columns = data["state"];
+
+        // for (let i = columns.length; i < 96; i++) {
+        //     for (let j = columns[i].length; j < 32, j++) {
+        //         columns[i][j].push("none");
+        //     }
+        // }
     }
     
 
