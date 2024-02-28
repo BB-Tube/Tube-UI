@@ -11,7 +11,7 @@ export async function POST({request}) {
       state[column].push(color);
 
       for (let i = 0; i < import.meta.env.COLUMNS; i++) {
-        if (state[i].length >= import.meta.env.ROWS) {
+        if (state[i].length > import.meta.env.ROWS) {
           return new Response("Column " + i + " is filled to the brim", { status: 418 });
         }
       }
