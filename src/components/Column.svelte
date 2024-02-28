@@ -7,27 +7,19 @@
     export let column;
     export let id;
     import Ball from "./Ball.svelte";
-    import { getContext } from "svelte";
-    // let ballColors = [];
+    import { selectedColor } from "../stores";
 
-    // for (let i = 0; i < column.length; i++) {
-    //     // just black and white for now, w-> white, anything else (b) -> black
-    //     if (column[i] === "w") {
-    //         ballColors.push("white");
-    //     }
-    //     else {
-    //         ballColors.push("black");
-    //     }
-    // }
+    let currentSelectedColor;
+
+    selectedColor.subscribe((value) => {
+        currentSelectedColor = value;
+    });
 
     for (let i = column.length; i < 32; i++) {
         column.push("none");
     }
 
     const addBall = async () => {
-
-        let color = getContext("color");
-        console.log(color);
 
         let res = await fetch("http://localhost:4321/api/updateState", {
             method: "POST",
@@ -36,10 +28,13 @@
             },
             body: JSON.stringify({
                 column: id,
-                color
+                color: currentSelectedColor
             })
         });
         res = await res.json();
+
+
+
         console.log(res);
     }
 </script>

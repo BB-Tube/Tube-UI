@@ -6,21 +6,21 @@ export async function POST({request}) {
     const color = body.color;
 
     try {
-      state = JSON.parse(fs.readFileSync('public/state.json', 'utf8'));
+      let state = JSON.parse(fs.readFileSync('public/state.json', 'utf8'));
 
       state[column].push(color);
 
       for (let i = 0; i < import.meta.env.COLUMNS; i++) {
-        if (state[i] >= import.meta.env.ROWS) {
+        if (state[i].length >= import.meta.env.ROWS) {
           return new Response("Column " + i + " is filled to the brim", { status: 418 });
         }
       }
   
-      if (state.length >= import.meta.env.COLUMNS) {
+      if (state.length > import.meta.env.COLUMNS) {
         return new Response("Too many columns", { status: 418 });
       }
 
-      fs.writeFileSync("public/state.json", JSON.stringify(body.state));
+      fs.writeFileSync("public/state.json", JSON.stringify(state));
       return new Response("Updated state", { status: 200 });
 
     }
