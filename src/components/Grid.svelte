@@ -98,6 +98,10 @@
 
 </script>
 <style>
+    .button-menu {
+        display: flex;
+        flex-direction: row;
+    }
     .table {
         display: flex;
         flex-direction: row;
