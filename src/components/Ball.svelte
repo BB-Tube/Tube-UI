@@ -3,10 +3,10 @@
     </div>
 </span>
 <script>
-    import { selectedColor, selectedMode } from "../stores";
+    import { selectedColor, selectedMode, stateStore } from "../stores";
     export let color, position;
 
-    let mode, currentSelectedColor;
+    let mode, currentSelectedColor, state;
 
     selectedMode.subscribe((value) => {
         mode = value;
@@ -14,7 +14,11 @@
 
     selectedColor.subscribe((value) => {
         currentSelectedColor = value;
-    })
+    });
+
+    stateStore.subscribe((value) => {
+        state = value;
+    });
 
     const addBall = async (e) => {
         if (mode !== "paint") {
@@ -25,16 +29,21 @@
             return;
         }
 
-        await fetch("http://localhost:4321/api/updateStateByPosition", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                position,
-                color: currentSelectedColor
-            })
-        });
+        state[position.column][position.row] = currentSelectedColor;
+
+        stateStore.set(state);
+
+
+        // await fetch("http://localhost:4321/api/updateStateByPosition", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         position,
+        //         color: currentSelectedColor
+        //     })
+        // });
     }
 
 

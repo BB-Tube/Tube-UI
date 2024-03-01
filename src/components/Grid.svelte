@@ -1,11 +1,11 @@
 <div>
     <ModeSelector />
-    <div on:click={updateTable} class="table">
-        {#each columns as column, i}
+    <div class="table">
+        {#each state as column, i}
             <Column id={i} column={column} />
         {/each}
     </div>
-    <ColorSelector colors={["white", "black", "red", "orange", "yellow", "green", "blue"]}/>
+    <ColorSelector colors={["white", "black", "red", "orange", "yellow", "green", "blue", "aqua", "#123456"]}/>
     <div class="button-menu">
         <div on:click={fillTube} id="empty">
             Fill the TUBE
@@ -28,14 +28,24 @@
     import ModeSelector from "./ModeSelector.svelte";
     import Column from "./Column.svelte";
     import { onMount } from "svelte";
-    import { selectedMode, selectedColor, isColumnDeleteStore } from "../stores";
+    import { selectedMode, selectedColor, isColumnDeleteStore, stateStore } from "../stores";
 
-    let columns = [];
     let mode;
     let color;
     let isColumnDelete;
+    let state;
 
-    let interval;
+    const updateState = async () => {
+        await fetch("http://localhost:4321/api/updateState", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                state
+            })
+        });
+    }
 
     selectedMode.subscribe((value) => {
         mode = value;
@@ -47,32 +57,18 @@
 
     isColumnDeleteStore.subscribe((value) => {
         isColumnDelete = value;
-    })
+    });
 
-    $: if (mode === "paint") {
-        interval = setInterval(() => {
-            updateTable();
-        }, 250);
-    }
-
-    $: if (mode === "drop") {
-        if (interval) {
-            clearInterval(interval);
-        }
-    }
-
+    stateStore.subscribe(async (value) => {
+        state = value;
+        await updateState();
+    });
 
     onMount(async function () {
         const response = await fetch("http://localhost:4321/api/getState");
         const data = await response.json();
-        columns = data["state"];
+        stateStore.set(data["state"]);
     });
-
-    const updateTable = async () => {
-        const response = await fetch("http://localhost:4321/api/getState");
-        const data = await response.json();
-        columns = data["state"];
-    }
 
     const fillTube = async () => {
         await fetch("http://localhost:4321/api/fillTube", {
@@ -85,6 +81,13 @@
             })
         });
         updateTable();
+
+    }
+
+    const updateTable = async () => {
+        const response = await fetch("http://localhost:4321/api/getState");
+        const data = await response.json();
+        stateStore.set(data["state"]);
     }
 
     const emptyTube = async () => {
@@ -95,6 +98,8 @@
     const emptyColumn = async () => {
         isColumnDeleteStore.set(!isColumnDelete);
     }
+
+    
 
 </script>
 <style>
