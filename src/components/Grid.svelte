@@ -6,11 +6,21 @@
         {/each}
     </div>
     <ColorSelector colors={["white", "black", "red", "orange", "yellow", "green", "blue"]}/>
-    <div on:click={fillTube} id="empty">
-        Fill the TUBE
-    </div>
-    <div on:click={emptyTube} id="empty">
-        Empty the TUBE
+    <div class="button-menu">
+        <div on:click={fillTube} id="empty">
+            Fill the TUBE
+        </div>
+        <div on:click={emptyColumn} id="empty">
+            {#if isColumnDelete}
+                Cancel
+            {/if}
+            {#if !isColumnDelete}
+                Empty column
+            {/if}      
+        </div>
+        <div on:click={emptyTube} id="empty">
+            Empty the TUBE
+        </div>
     </div>
 </div>
 <script>
@@ -18,11 +28,12 @@
     import ModeSelector from "./ModeSelector.svelte";
     import Column from "./Column.svelte";
     import { onMount } from "svelte";
-    import { selectedMode, selectedColor } from "../stores";
+    import { selectedMode, selectedColor, isColumnDeleteStore } from "../stores";
 
     let columns = [];
     let mode;
     let color;
+    let isColumnDelete;
 
     let interval;
 
@@ -33,6 +44,10 @@
     selectedColor.subscribe((value) => {
         color = value;
     });
+
+    isColumnDeleteStore.subscribe((value) => {
+        isColumnDelete = value;
+    })
 
     $: if (mode === "paint") {
         interval = setInterval(() => {
@@ -75,6 +90,10 @@
     const emptyTube = async () => {
         await fetch("http://localhost:4321/api/clearState");
         updateTable();
+    }
+
+    const emptyColumn = async () => {
+        isColumnDeleteStore.set(!isColumnDelete);
     }
 
 </script>

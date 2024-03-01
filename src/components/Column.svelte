@@ -1,4 +1,4 @@
-<div on:click={addBall}>
+<div style="--column-outline: {isColumnDelete? "red": "#F6FDFE"}" on:click={addBall}>
     {#each column as color, row}
         <Ball position={{column: id, row}} color={color} />
     {/each}
@@ -7,10 +7,11 @@
     export let column;
     export let id;
     import Ball from "./Ball.svelte";
-    import { selectedColor, selectedMode } from "../stores";
+    import { selectedColor, selectedMode, isColumnDeleteStore } from "../stores";
 
     let currentSelectedColor;
     let mode;
+    let isColumnDelete;
 
     selectedColor.subscribe((value) => {
         currentSelectedColor = value;
@@ -20,12 +21,29 @@
         mode = value;
     })
 
+    isColumnDeleteStore.subscribe((value) => {
+        isColumnDelete = value;
+    })
+
 
     $: for (let i = column.length; i < 32; i++) {
         column.push("none");
     }
 
     const addBall = async () => {
+
+        if (isColumnDelete) {
+            await fetch("http://localhost:4321/api/emptyColumn", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    column: id,
+                })
+            });
+            return;
+        }
 
         if (mode !== "drop") {
             return;
@@ -46,7 +64,7 @@
 </script>
 <style>
     div:hover {
-        outline: 1px solid #F6FDFE;
+        outline: 1px solid var(--column-outline);
     }
     div {
         display: flex;
