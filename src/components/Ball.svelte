@@ -19,11 +19,11 @@
             return;
         }
 
-        if (e.buttons !== 1) {
+        if (e && e.buttons !== 1) {
             return;
         }
 
-        let res = await fetch("http://localhost:4321/api/updateStateByPosition", {
+        await fetch("http://localhost:4321/api/updateStateByPosition", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -33,8 +33,6 @@
                 color: currentSelectedColor
             })
         });
-
-
     }
 
 

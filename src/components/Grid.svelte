@@ -21,16 +21,31 @@
     import { selectedMode, selectedColor } from "../stores";
 
     let columns = [];
-    let selected;
+    let mode;
     let color;
 
+    let interval;
+
     selectedMode.subscribe((value) => {
-        selected = value;
+        mode = value;
     });
 
     selectedColor.subscribe((value) => {
         color = value;
     });
+
+    $: if (mode === "paint") {
+        interval = setInterval(() => {
+            updateTable();
+        }, 100);
+    }
+
+    $: if (mode === "drop") {
+        if (interval) {
+            clearInterval(interval);
+        }
+    }
+
 
     onMount(async function () {
         const response = await fetch("http://localhost:4321/api/getState");
@@ -45,7 +60,7 @@
     }
 
     const fillTube = async () => {
-        let res = await fetch("http://localhost:4321/api/fillTube", {
+        await fetch("http://localhost:4321/api/fillTube", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
