@@ -19,3 +19,9 @@
     }
 
 </script>
+
+<style>
+    select {
+        margin: 10px;
+    }
+</style>
