@@ -6,6 +6,9 @@
         {/each}
     </div>
     <ColorSelector colors={["white", "black", "red", "orange", "yellow", "green", "blue"]}/>
+    <div on:click={fillTube} id="empty">
+        Fill the TUBE
+    </div>
     <div on:click={emptyTube} id="empty">
         Empty the TUBE
     </div>
@@ -15,13 +18,18 @@
     import ModeSelector from "./ModeSelector.svelte";
     import Column from "./Column.svelte";
     import { onMount } from "svelte";
-    import { selectedMode } from "../stores";
+    import { selectedMode, selectedColor } from "../stores";
 
     let columns = [];
     let selected;
+    let color;
 
     selectedMode.subscribe((value) => {
         selected = value;
+    });
+
+    selectedColor.subscribe((value) => {
+        color = value;
     });
 
     onMount(async function () {
@@ -34,6 +42,20 @@
         const response = await fetch("http://localhost:4321/api/getState");
         const data = await response.json();
         columns = data["state"];
+    }
+
+    const fillTube = async () => {
+        let res = await fetch("http://localhost:4321/api/fillTube", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                color
+            })
+        });
+        res = await res.json();
+        updateTable();
     }
 
     const emptyTube = async () => {
@@ -58,6 +80,7 @@
         -webkit-transition-duration: 0.4s; /* Safari */
   		transition-duration: 0.4s;
         font-size: 25px;
+        margin: 5px;
     }
     #empty:hover {
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
