@@ -58,18 +58,20 @@
         }
 
 
+        state[id].push(currentSelectedColor);
+        stateStore.set(state);
 
-        let res = await fetch("http://localhost:4321/api/updateStateByColumn", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                column: id,
-                color: currentSelectedColor
-            })
-        });
-        res = await res.json();
+        // let res = await fetch("http://localhost:4321/api/updateStateByColumn", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         column: id,
+        //         color: currentSelectedColor
+        //     })
+        // });
+        // res = await res.json();
     }
 </script>
 <style>

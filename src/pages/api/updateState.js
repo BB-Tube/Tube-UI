@@ -3,6 +3,7 @@ export async function POST({request}) {
     if (request.headers.get("Content-Type") === "application/json") {
       const body = await request.json();
       const state = body.state;
+      console.log(state);
   
       try {
   
@@ -21,6 +22,7 @@ export async function POST({request}) {
   
       }
       catch (e) {
+        console.log(e);
         return new Response(e, { status: 500 });
       }
     }
