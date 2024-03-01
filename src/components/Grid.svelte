@@ -61,13 +61,17 @@
 
     stateStore.subscribe(async (value) => {
         state = value;
-        await updateState();
+        if (state.length > 0) {
+            await updateState();
+
+        }
     });
 
     onMount(async function () {
         const response = await fetch("http://localhost:4321/api/getState");
         const data = await response.json();
         stateStore.set(data["state"]);
+
     });
 
     const fillTube = async () => {

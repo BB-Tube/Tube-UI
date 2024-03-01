@@ -3,6 +3,10 @@ export async function POST({request}) {
     if (request.headers.get("Content-Type") === "application/json") {
       const body = await request.json();
       const state = body.state;
+
+      if (state.length === 0) {
+        return new Response("No", {status: 418});
+      }
   
       try {
   
