@@ -4,7 +4,7 @@
             <Column id={i} column={column} />
         {/each}
     </div>
-    <ColorSelector colors={["white", "black"]}/>
+    <ColorSelector colors={["white", "black", "red", "orange", "yellow", "green", "blue"]}/>
     <div on:click={emptyTube} id="empty">
         Empty the TUBE
     </div>
@@ -35,8 +35,6 @@
         await fetch("http://localhost:4321/api/clearState");
         updateTable();
     }
-    
-
 
 </script>
 <style>
@@ -51,7 +49,6 @@
         -webkit-transition-duration: 0.4s; /* Safari */
   		transition-duration: 0.4s;
         font-size: 25px;
-        margin: 5px;
     }
     #empty:hover {
         box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);

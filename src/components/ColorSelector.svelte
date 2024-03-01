@@ -28,9 +28,16 @@
         border-radius: 50%;
         background-color: var(--color);
         margin: 5px;
+        -webkit-transition-duration: 0.4s; /* Safari */
+  		transition-duration: 0.4s;
+    }
+    div:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
     }
     span {
         display: flex;
         flex-direction: row;
+        height: 100px;
+        margin: 10px;
     }
 </style>
