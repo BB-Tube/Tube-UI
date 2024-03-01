@@ -33,7 +33,6 @@
                 color: currentSelectedColor
             })
         });
-        res = await res.json();
 
 
     }

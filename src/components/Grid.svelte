@@ -54,7 +54,6 @@
                 color
             })
         });
-        res = await res.json();
         updateTable();
     }
 
