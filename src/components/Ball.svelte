@@ -1,5 +1,7 @@
-<div draggable="false" on:mouseenter={(e) => addBall(e)} style="--theme-color: {color !== "none" && color !== null? color : "#515151"}; --outline-color: {color !== "none" && color !== null? color : "#F6FDFE"}">
-</div>
+<span draggable="false" on:mouseenter={(e) => addBall(e)}>
+    <div draggable="false"  style="--theme-color: {color !== "none" && color !== null? color : "#515151"}; --outline-color: {color !== "none" && color !== null? color : "#F6FDFE"}">
+    </div>
+</span>
 <script>
     import { selectedColor, selectedMode } from "../stores";
     export let color, position;
@@ -44,6 +46,12 @@
         width: 8px;
         border-radius: 50%;
         outline: 1px solid var(--outline-color);
-        margin: 3px;
+    }
+    span {
+        height: 15px;
+        width: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>
