@@ -57,8 +57,13 @@
             return;
         }
 
+        for (let i = 0; i < state[id].length; i++) {
+            if (state[id][i] === null || state[id][i] === "none") {
+                state[id][i] = currentSelectedColor;
+                break;
+            }
+        }
 
-        state[id].push(currentSelectedColor);
         stateStore.set(state);
 
         // let res = await fetch("http://localhost:4321/api/updateStateByColumn", {
