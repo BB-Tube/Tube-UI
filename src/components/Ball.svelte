@@ -1,4 +1,4 @@
-<div on:mouseenter={(e) => addBall(e)} style="--theme-color: {color !== "none" && color !== null? color : "#515151"}; --outline-color: {color !== "none" && color !== null? color : "#F6FDFE"}">
+<div draggable="false" on:mouseenter={(e) => addBall(e)} style="--theme-color: {color !== "none" && color !== null? color : "#515151"}; --outline-color: {color !== "none" && color !== null? color : "#F6FDFE"}">
 </div>
 <script>
     import { selectedColor, selectedMode } from "../stores";
