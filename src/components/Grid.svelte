@@ -37,7 +37,7 @@
     $: if (mode === "paint") {
         interval = setInterval(() => {
             updateTable();
-        }, 100);
+        }, 500);
     }
 
     $: if (mode === "drop") {
