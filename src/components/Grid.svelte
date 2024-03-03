@@ -1,6 +1,6 @@
 <div>
     <ModeSelector />
-    <div class="table">
+    <div draggable="false" class="table">
         {#each state as column, i}
             <Column id={i} column={column} />
         {/each}

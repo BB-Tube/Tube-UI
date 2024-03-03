@@ -1,4 +1,4 @@
-<span draggable="false" on:mouseenter={(e) => addBall(e)}>
+<span draggable="false" on:mousedown={(e) => addBall(e)} on:mouseenter={(e) => addBall(e)}>
     <div draggable="false"  style="--theme-color: {color !== "none" && color !== null? color : "#515151"}; --outline-color: {color !== "none" && color !== null? color : "#F6FDFE"}">
     </div>
 </span>
