@@ -1,4 +1,4 @@
-<div>
+<div draggable="false">
     <ModeSelector />
     <div draggable="false" class="table">
         {#each state as column, i}
