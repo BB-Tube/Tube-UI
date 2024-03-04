@@ -20,6 +20,7 @@
     });
 
     const addBall = async (e) => {
+        e.preventDefault();
         if (mode !== "paint") {
             return;
         }
